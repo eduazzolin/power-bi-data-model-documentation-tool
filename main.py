@@ -304,28 +304,33 @@ class Main:
 if __name__ == '__main__':
 
     print(f'\nGeração de documentação de modelo de dados\n{"-" * 40}')
-
-    model_type = int(input(f'\nEscolha o tipo de modelo de dados:'
-                           f'\n1. Modelo de dados pbip'
-                           f'\n2. Arquivo model.bim'
-                           f'\nEscolha: '))
-
-    gerar_interprecacao_ia = int(input('\nDeseja gerar interpretações com IA (beta)?'
-                                       '\n0. Não'
-                                       '\n1. Somente medidas'
-                                       '\n2. Somente colunas calculadas'
-                                       '\n3. Tudo'
-                                       '\nEscolha: '))
-
-    openai_key = input('\nDigite a chave da API do OpenAI: ') if gerar_interprecacao_ia != 0 else None
-
-    if model_type == 1:
-        path = input('\nDigite o caminho da pasta raiz do modelo de dados: ')
-        model = Model(path, model_type=1)
-    elif model_type == 2:
-        path = input('\nDigite o caminho da pasta em que está o arquivo model.bim: ')
-        model = Model(path, model_type=2)
-
-    main = Main(model, gerar_interprecacao_ia, openai_key)
+    path = os.path.dirname(__file__)
+    model = Model(path, model_type=2)
+    main = Main(model)
     documentacao_md = main.gerar_md()
     main.salvar_md(documentacao_md)
+
+    # model_type = int(input(f'\nEscolha o tipo de modelo de dados:'
+    #                        f'\n1. Modelo de dados pbip'
+    #                        f'\n2. Arquivo model.bim'
+    #                        f'\nEscolha: '))
+    #
+    # gerar_interprecacao_ia = int(input('\nDeseja gerar interpretações com IA (beta)?'
+    #                                    '\n0. Não'
+    #                                    '\n1. Somente medidas'
+    #                                    '\n2. Somente colunas calculadas'
+    #                                    '\n3. Tudo'
+    #                                    '\nEscolha: '))
+    #
+    # openai_key = input('\nDigite a chave da API do OpenAI: ') if gerar_interprecacao_ia != 0 else None
+    #
+    # if model_type == 1:
+    #     path = input('\nDigite o caminho da pasta raiz do modelo de dados: ')
+    #     model = Model(path, model_type=1)
+    # elif model_type == 2:
+    #     path = input('\nDigite o caminho da pasta em que está o arquivo model.bim: ')
+    #     model = Model(path, model_type=2)
+    #
+    # main = Main(model, gerar_interprecacao_ia, openai_key)
+    # documentacao_md = main.gerar_md()
+    # main.salvar_md(documentacao_md)
